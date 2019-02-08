@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% load account_tags %}
+
+
+{% block head_title %}Home{% endblock %}
+{% block body_class %}d-flex align-items-center bg-white border-top-2 border-primary{% endblock %}
+
+{% block topbar_base %}{% endblock topbar_base %}
+
+{% block body_base %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0">
+
+            <!-- Image -->
+            <div class="text-center">
+                <img src="{% static 'assets/img/SFA_logo.jpg' %}" alt="home" class="img-fluid">
+            </div>
+
+        </div>
+        <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
+            
+            <div class="text-center">
+            
+            <!-- Preheading -->
+            {% comment %} <h6 class="text-uppercase text-muted mb-4">
+                404 error
+            </h6> {% endcomment %}
+
+            <!-- Heading -->
+            <h1 class="display-4 mb-3">
+                {% trans "Welcome" %} {% user_display request.user %}
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-muted mb-4">
+                {% trans "Please click the button below to see all sections" %}
+            </p>
+
+            <!-- Button -->
+            <a href="{% url 'attendance:sections' %}" class="btn btn-lg btn-primary">
+               {% trans "Sections" %}
+            </a>
+            
+            </div>
+
+        </div>
+    </div> <!-- / .row -->
+</div> <!-- / .container -->
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% block head_title %}{{section.name}}{% endblock %}
+
+
+{% block body %}
+    <div class="main-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    
+                    <!-- Header -->
+                    <div class="header mt-md-5">
+                        <div class="header-body">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    {% comment %} <!-- Pretitle -->
+                                    <h6 class="header-pretitle">
+                                    Overview
+                                    </h6> {% endcomment %}
+
+                                    <!-- Title -->
+                                    <h1 class="header-title">
+                                        {{section.name}} {% trans "students" %}
+                                    </h1>
+
+                                </div>
+                                {% comment %} <div class="col-auto">
+                                    
+                                    <!-- Button -->
+                                    <a href="#" class="btn btn-primary">
+                                    New order
+                                    </a>
+                                    
+                                </div> {% endcomment %}
+                            </div> <!-- / .row -->
+                            {% comment %} <div class="row align-items-center">
+                                <div class="col">
+                                    
+                                    <!-- Nav -->
+                                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                                    <li class="nav-item">
+                                        <a href="#!" class="nav-link active">
+                                        Na <span class="badge badge-pill badge-soft-secondary">823</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#!" class="nav-link">
+                                        Pending <span class="badge badge-pill badge-soft-secondary">24</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#!" class="nav-link">
+                                        Processing <span class="badge badge-pill badge-soft-secondary">3</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#!" class="nav-link">
+                                        Refunded <span class="badge badge-pill badge-soft-secondary">71</span>
+                                        </a>
+                                    </li>
+                                    </ul>
+
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+
+                    <!-- Card -->
+                    <form action="{{post_url}}" method = "POST">
+                        {% csrf_token %}
+                        <div class="card" data-toggle="lists" data-lists-values='["stud_id", "last_name", "first_name"]'>
+                            <div class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+
+                                        <!-- Search -->
+                                        <div class="row">
+                                            <div class="col-auto pr-0">
+                                                <span class="fe fe-search text-muted"></span>
+                                            </div>
+                                            <div class="col">
+                                                <input type="search" class="form-control form-control-flush search" placeholder="Search">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div> <!-- / .row -->
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-sm table-nowrap card-table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="custom-control custom-checkbox table-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="ordersSelect" id="ordersSelectAll">
+                                                <label class="custom-control-label" for="ordersSelectAll">
+                                                    &nbsp;
+                                                </label>
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="stud_id">
+                                                {% trans "Student ID" %}
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="last_name">
+                                                {% trans "Last name" %}
+                                                </a>
+                                            </th>
+                                            <th>
+                                                <a href="#" class="text-muted sort" data-sort="first_name">
+                                                {% trans "First name" %}
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    
+                    
+                                    <tbody class="list">
+                                        {% for student in section.students.all %}
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox table-checkbox">
+                                                <input type="checkbox" class="custom-control-input" value="{{student.id}}" name="ordersSelect" id="id_ordersSelect_{{forloop.counter0}}">
+                                                <label class="custom-control-label" for="id_ordersSelect_{{forloop.counter0}}">
+                                                    &nbsp;
+                                                </label>
+                                                </div>
+                                            </td>
+                                            <td class="stud_id">
+                                                {{student.student_number}}
+                                            </td>
+                                            <td class="last_name">
+                                                {{student.last_name}}
+                                            </td>
+                                            <td class="first_name">
+                                                {{student.first_name}}
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr><td colspan=3>{% trans "No related section for this account." %}</td></tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-lg float-right" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container-fluid -->
+    </div> <!-- / .main-content -->
+{% endblock %}
